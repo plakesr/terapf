@@ -41,8 +41,8 @@ resource "aws_route_table" "pub_rt" {
 
 #RT association with public subnet
 
-resource "aws_route_table_association" "" {
+resource "aws_route_table_association" "pub_attach" {
   count          = "${length(var.subnets_cidr)}"
-  subnet_id      = "${aws_subnet.public.*.id, count.index}"
+  subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
   route_table_id = "${aws_route_table.pub_rt.id}"
 }
