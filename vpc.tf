@@ -17,9 +17,32 @@ resource "aws_internet_gateway" "myigw" {
 resource "aws_subnet" "public" {
   count      = "${length(var.subnets_cidr)}"
   vpc_id     = "${aws_vpc.myvpc.id}"
+  availability_zone = "${element(var.az, count.index)}"
   cidr_block = "${element(var.subnets_cidr, count.index)}"
 
   tags = {
     Name = "Subnet-${count.index + 1}"
   }
+}
+
+#R_Table
+resource "aws_route_table" "pub_rt" {
+  vpc_id = "${aws_vpc.myvpc.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.myigw.id}"
+  }
+
+  tags = {
+    Name = "pub_rt"
+  }
+}
+
+#RT association with public subnet
+
+resource "aws_route_table_association" "" {
+  count          = "${length(var.subnets_cidr)}"
+  subnet_id      = "${aws_subnet.public.*.id, count.index}"
+  route_table_id = "${aws_route_table.pub_rt.id}"
 }
