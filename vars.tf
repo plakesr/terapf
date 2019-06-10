@@ -15,3 +15,11 @@ variable "az" {
   type    = "list"
   default = ["us-east-1a","us-east-1b"]
 }
+
+variable "web_ami" {
+  default = "ami-0c6b1d09930fac512"
+}
+
+variable "ins_type" {
+  default = "t2.micro"
+}
