@@ -7,6 +7,6 @@ variable "vpc_cidr" {
 }
 
 variable "subnets_cidr" {
-  type = "list"
+  type    = "list"
   default = ["10.20.1.0/24 10.20.2.0/24"]
 }
