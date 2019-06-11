@@ -2,8 +2,8 @@
 resource "aws_elb" "myelb" {
   name               = "my-terraform-elb"
   availability_zones = ["${var.az}"]
-  subnets =  ["${aws_subnet.public.*.id}"]
-  security_groups = ["${aws_security_group.webserver.id}"]
+  subnets            = ["${aws_subnet.public.*.id}"]
+  security_groups    = ["${aws_security_group.webserver.id}"]
 
 
   listener {

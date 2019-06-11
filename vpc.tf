@@ -15,10 +15,10 @@ resource "aws_internet_gateway" "myigw" {
 }
 #subnet creation
 resource "aws_subnet" "public" {
-  count      = "${length(var.subnets_cidr)}"
-  vpc_id     = "${aws_vpc.myvpc.id}"
-  availability_zone = "${element(var.az, count.index)}"
-  cidr_block = "${element(var.subnets_cidr, count.index)}"
+  count                   = "${length(var.subnets_cidr)}"
+  vpc_id                  = "${aws_vpc.myvpc.id}"
+  availability_zone       = "${element(var.az, count.index)}"
+  cidr_block              = "${element(var.subnets_cidr, count.index)}"
   map_public_ip_on_launch = true
 
   tags = {
